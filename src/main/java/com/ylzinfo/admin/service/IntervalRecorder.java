@@ -1,5 +1,6 @@
 package com.ylzinfo.admin.service;
 
+import com.ylzinfo.admin.config.AdminExpandProperties;
 import com.ylzinfo.admin.enumerate.MetricsEnum;
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository;
@@ -32,11 +33,12 @@ public class IntervalRecorder {
     private InstanceWebClient instanceWebClient;
     private InstanceRepository repository;
     private JdbcTemplate jdbcTemplate;
+    private AdminExpandProperties adminExpandProperties;
 
     @PostConstruct
     public void start() {
         log.info("start record service metrics");
-        Duration duration = Duration.ofSeconds(10);
+        Duration duration = adminExpandProperties.getRecordInterval();
         Scheduler scheduler = Schedulers.newSingle("record");
         Flux.interval(duration)
                 .doOnNext(s -> log.info("定时 {} 记录每个服务运行指标",duration))

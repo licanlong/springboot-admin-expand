@@ -23,12 +23,13 @@ import javax.sql.DataSource;
 @EnableConfigurationProperties(AdminExpandProperties.class)
 public class AdminExpandAutoConfiguration {
 
+    private AdminExpandProperties adminExpandProperties;
 
     @Bean
     public IntervalRecorder intervalRecorder(InstanceWebClient instanceWebClient,
                                              InstanceRepository repository,
                                              JdbcTemplate jdbcTemplate){
-        return new IntervalRecorder(instanceWebClient, repository, jdbcTemplate);
+        return new IntervalRecorder(instanceWebClient, repository, jdbcTemplate,adminExpandProperties);
     }
 
     @Bean
