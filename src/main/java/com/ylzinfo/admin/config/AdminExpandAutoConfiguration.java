@@ -25,6 +25,10 @@ public class AdminExpandAutoConfiguration {
 
     private AdminExpandProperties adminExpandProperties;
 
+    public AdminExpandAutoConfiguration(AdminExpandProperties adminExpandProperties) {
+        this.adminExpandProperties = adminExpandProperties;
+    }
+
     @Bean
     public IntervalRecorder intervalRecorder(InstanceWebClient instanceWebClient,
                                              InstanceRepository repository,
